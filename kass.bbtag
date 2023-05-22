@@ -1,0 +1,74 @@
+{set;_guild.email;{username}@{guildName} ->}
+
+{if;{userid};!=;696931054631518249;
+  You do not have permission to run this command!{return};
+}
+
+{if;{argsLength};==;0;
+{execCC;_empty.command}
+{return}
+}
+
+{switch;{args;0};
+list;
+  {get;_kassshit}
+
+ ;update;
+  {set;_kassshit;{args;1;n}}
+
+{void;{send;1006589773856649286;{embedbuild;
+ title: Updated Command;
+ description: The command has been updated to ```{get;_kassshit}```; 
+ color:blue;
+ }}}
+{//;}
+  ;["clearlog", "clear"];
+  {set;~user;{userid;{args;1}}}
+  {if;{userid;{args;1};quiet};==;;
+    Please specify a user you want the logs to be cleared{return};
+    {set;~user;{userid;{args;1}}}
+  }
+  {set;_Umodlogs_{get;~user};0}
+  {void;{send;1006589773856649286;{embedbuild;
+ title: Cleared Logs Command;
+ description:  cleared `{username;{get;~user}}` logs; 
+ color:red;
+ }}}
+{//;}
+;xp;
+{set;~user;{userid;{args;1}}}
+  {if;{userid;{args;1};quiet};==;;
+    Please specify a user you want to fix their xp! {return};
+    {set;~user;{userid;{args;1}}}
+  }
+  {set;~xpNumber;{args;2}}
+  {if;{parseint;{get;~xpNumber}};==;NaN;
+  Please provide a number! {return}
+  }
+  {set;_{userid;{get;~user}}_TXP;{get;~xpNumber}}
+   {void;{send;1006589773856649286;{embedbuild;
+ title: XP Command;
+ description: Kiekko has updated  <@{get;~user}> XP to {get;~xpNumber}; 
+ color:yellow;
+ }}}
+
+ ;help;
+ You should know your shit... You made it all...
+ {void;{send;{channelId};
+ {embedBuild;
+ title: Kass Command Help;
+description:
+ **Update:** executes the AR variable `.kass update <args>`
+
+ **List:** Sees the current AR variable `.kass list`
+
+ **Clear:** Clears the modlogs of a user `.kass clear <user>`
+
+**XP:** Manually set the XP of a user `.kass xp <user>`
+
+**Help:** Are you that fucking dumb??;
+color:white;
+ }
+ }}
+
+}
